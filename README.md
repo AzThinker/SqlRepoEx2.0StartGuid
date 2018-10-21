@@ -2,7 +2,7 @@
 Getting Start SqlRepoEx2.2.1
 
 
-```
+``` C#
   public static void QueryOnly(bool go = false)
         {
             // [Column("ProductName")]
@@ -81,9 +81,11 @@ Getting Start SqlRepoEx2.2.1
             //	LEFT OUTER JOIN [dbo].[Suppliers]
             //	ON [dbo].[Products].[SupplierID] = [dbo].[Suppliers].[SupplierID];
         }
-      ```
-      # For Dapper
-      ```
+```
+      
+# For Dapper
+      
+```
       public static class DapperTest
     {
         private static IDbConnection dbConnection = MsSqlRepoFactory.DbConnection;
@@ -367,4 +369,4 @@ Getting Start SqlRepoEx2.2.1
 
         }
     }
-      ```
+```
