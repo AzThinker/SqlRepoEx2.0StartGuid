@@ -26,7 +26,7 @@ namespace GettingStartedMsSql
             }
 
 
-            if (2 == 3)
+            if (2 == 2)
             {
                 result = result.Where(e => e.ProductID>1);
             }

@@ -7,6 +7,7 @@ using SqlRepoEx.Core.CustomAttribute;
 namespace DemoTools.BLL.DemoNorthwind
 {
     [Table("Categories")]
+ 
     /// <summary>
     /// 分类 业务类
     /// </summary>

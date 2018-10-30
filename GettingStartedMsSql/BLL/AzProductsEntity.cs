@@ -13,7 +13,9 @@ namespace DemoTools.BLL.DemoNorthwind
     public sealed class AzProducts
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+       // [IdentityField]
         [Key]
+       // [KeyField]
         public int ProductID { get; set; }
 
         [Column("ProductName")]
@@ -21,6 +23,7 @@ namespace DemoTools.BLL.DemoNorthwind
         public int? SupplierID { get; set; }
 
         [NotMapped]
+        //[NonDatabaseField]
         [Column("CompanyName")]
         public string Supplier { get; set; }
         public int? CategoryID { get; set; }

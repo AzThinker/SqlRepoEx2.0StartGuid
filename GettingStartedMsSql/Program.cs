@@ -29,14 +29,14 @@ namespace GettingStartedMsSql
 
             //// select test Alias
             ///
-            SelectAliasTest.QueryOnly(true);
-            SelectAliasTest.DoInnerJoin();
-            SelectAliasTest.LeftOuterJoin();
-            SelectAliasTest.QueryWhere();
-            SelectAliasTest.QueryWhereIn();
-            SelectAliasTest.QueryAvg();
-            SelectAliasTest.QuerySum();
-            SelectAliasTest.QueryUnion(true);
+            //SelectAliasTest.QueryOnly(true);
+            //SelectAliasTest.DoInnerJoin();
+            //SelectAliasTest.LeftOuterJoin();
+            //SelectAliasTest.QueryWhere();
+            //SelectAliasTest.QueryWhereIn();
+            //SelectAliasTest.QueryAvg();
+            //SelectAliasTest.QuerySum();
+            //SelectAliasTest.QueryUnion(true);
 
 
 
@@ -78,6 +78,9 @@ namespace GettingStartedMsSql
             // DapperTest.DoDelete();
             // DapperTest.DoDeleteEntity();
             // DapperTest.DoDeleteTransaction();
+
+            DapperTest.DoUpdateEntityReturnParam();
+
             Console.ReadLine();
         }
     }

@@ -89,6 +89,7 @@ namespace GettingStartedMsSql
                                     .WhereIn(p => p.ProductName2, new string[] { "Konbu", "Chang", "Tunnbröd", "Geitost" });
             Console.WriteLine(result.Sql());
             Console.WriteLine();
+
             IEnumerable<AzProducts> azProducts = dbConnection.Query<AzProducts>(result.Sql());
 
             foreach (var item in azProducts)
@@ -111,6 +112,7 @@ namespace GettingStartedMsSql
 
             Console.WriteLine(result.Sql());
             Console.WriteLine();
+
             IEnumerable<AzOrder_Details> azOrder_Details = dbConnection.Query<AzOrder_Details>(result.Sql());
 
             foreach (var item in azOrder_Details)
@@ -202,9 +204,6 @@ namespace GettingStartedMsSql
 
             // 需返回自增字段，所以用Query
             dbConnection.Execute(resultinsert.ParamSql(), azProductList);
-
-
-
         }
 
         public static void DoUpdateEntityParam()
@@ -255,7 +254,9 @@ namespace GettingStartedMsSql
             };
             Console.WriteLine(resultUpdate.Sql());
             Console.WriteLine();
+
             int result = dbConnection.Execute(resultUpdate.Sql(), azProductList);
+
             Console.WriteLine($"{result}");
         }
 
@@ -267,7 +268,9 @@ namespace GettingStartedMsSql
 
             Console.WriteLine(resultUpdate.Sql());
             Console.WriteLine();
+
             int result = dbConnection.Execute(resultUpdate.Sql());
+
             Console.WriteLine($"{result}");
         }
 
@@ -292,6 +295,53 @@ namespace GettingStartedMsSql
                 transaction.Rollback();
             }
 
+        }
+
+
+
+        public static void DoUpdateEntityReturnParam()
+        {
+            var repository = MsSqlRepoFactory.Create<AzProducts>();
+            var resultUpdate = repository
+                                    .Update()
+                                    .Set(p=>p.ProductName2, "testvalue123")
+                                    .Set(p=>p.CategoryID,5)
+                                    .Where(p => p.ProductID == 84);
+
+            Console.WriteLine(resultUpdate.ParamSql());
+            Console.WriteLine();
+            var ret = resultUpdate.ParamSqlWithEntity();
+         //   AzProducts products = new AzProducts() { ProductID = 84, ProductName2 = "testvalue100", CategoryID = 7 };
+
+            int result = dbConnection.Execute(ret.paramsql, ret.entity);
+
+
+            Console.WriteLine($"{result}");
+        }
+
+        /// <summary>
+        /// 2.2.2 解决自增自段更新Set(p => p.ProductID, 84)语句的正确性（原出现在更新语句中）
+        /// 此外的自增的值，会出现在  ret.entity 中
+        /// </summary>
+        public static void DoUpdateEntityReturnParam2()
+        {
+            var repository = MsSqlRepoFactory.Create<AzProducts>();
+            var resultUpdate = repository
+                                    .Update()
+                                    .Set(p => p.ProductID, 84)
+                                    .Set(p => p.ProductName2, "testvalue234")
+                                    .Set(p => p.CategoryID, 5)
+                                    .Where(p => p.ProductID == p.ProductID);
+
+            Console.WriteLine(resultUpdate.Sql());
+            Console.WriteLine();
+            var ret = resultUpdate.ParamSqlWithEntity();
+            //  AzProducts products = new AzProducts() { ProductID = 84, ProductName2 = "testvalue100", CategoryID = 7 };
+
+            int result = dbConnection.Execute(ret.paramsql, ret.entity);
+
+
+            Console.WriteLine($"{result}");
         }
     }
 }
